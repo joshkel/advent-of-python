@@ -2,21 +2,22 @@
 
 import fileinput
 
-def elevator(s):
-    return s.count('(') - s.count(')')
-
-def when_floor(s, dest):
+def elevator_iter(s):
     position = 0
-    if dest == position:
-        return 0
-    for n, c in enumerate(s):
+    for c in s:
         if c == '(':
             position += 1
         if c == ')':
             position -= 1
-        if position == dest:
-            return n + 1
-    return None
+        yield position
+
+def elevator(s):
+    return list(elevator_iter(s))[-1]
+
+def when_floor(s, dest):
+    if dest == 0:
+        return 0
+    return next((n + 1 for n, p in enumerate(elevator_iter(s)) if p == -1), None)
 
 if __name__ == '__main__':
     s = ''
