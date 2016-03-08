@@ -4,7 +4,7 @@ import unittest
 
 from day01 import elevator, when_floor
 from day02 import parse_size, wrapping_paper, ribbon
-from day03 import flight_path
+from day03 import dispatch_flight_path
 
 class TestDay01(unittest.TestCase):
     def test_simple(self):
@@ -35,9 +35,14 @@ class TestDay02(unittest.TestCase):
 
 class TestDayo3(unittest.TestCase):
     def test_simple(self):
-        self.assertEqual(len(flight_path('>')), 2)
-        self.assertEqual(len(flight_path('^>v<')), 4)
-        self.assertEqual(len(flight_path('^v^v^v^v^v')), 2)
+        self.assertEqual(len(dispatch_flight_path('>')), 2)
+        self.assertEqual(len(dispatch_flight_path('^>v<')), 4)
+        self.assertEqual(len(dispatch_flight_path('^v^v^v^v^v')), 2)
+
+    def test_with_robo_santa(self):
+        self.assertEqual(len(dispatch_flight_path('^v', 2)), 3)
+        self.assertEqual(len(dispatch_flight_path('^>v<', 2)), 3)
+        self.assertEqual(len(dispatch_flight_path('^v^v^v^v^v', 2)), 11)
 
 if __name__ == '__main__':
     unittest.main()
