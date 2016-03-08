@@ -4,8 +4,9 @@ import unittest
 
 from day01 import elevator, when_floor
 from day02 import parse_size, wrapping_paper, ribbon
+from day03 import flight_path
 
-class TestElevator(unittest.TestCase):
+class TestDay01(unittest.TestCase):
     def test_simple(self):
         self.assertEqual(elevator('(())'), 0)
         self.assertEqual(elevator('()()'), 0)
@@ -20,7 +21,7 @@ class TestElevator(unittest.TestCase):
         self.assertEqual(when_floor('()())', -1), 5)
         self.assertEqual(when_floor('((', -1), None)
 
-class TestWrappingPaper(unittest.TestCase):
+class TestDay02(unittest.TestCase):
     def test_parse_size(self):
         self.assertEqual(parse_size('2x3x4'), (2,3,4))
 
@@ -31,6 +32,12 @@ class TestWrappingPaper(unittest.TestCase):
     def test_ribbon(self):
         self.assertEqual(ribbon(parse_size('2x3x4')), 34)
         self.assertEqual(ribbon(parse_size('1x1x10')), 14)
+
+class TestDayo3(unittest.TestCase):
+    def test_simple(self):
+        self.assertEqual(len(flight_path('>')), 2)
+        self.assertEqual(len(flight_path('^>v<')), 4)
+        self.assertEqual(len(flight_path('^v^v^v^v^v')), 2)
 
 if __name__ == '__main__':
     unittest.main()
