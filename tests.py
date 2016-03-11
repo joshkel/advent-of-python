@@ -5,6 +5,7 @@ import unittest
 from day01 import elevator, when_floor
 from day02 import parse_size, wrapping_paper, ribbon
 from day03 import dispatch_flight_path
+from day04 import advent_coin
 
 class TestDay01(unittest.TestCase):
     def test_simple(self):
@@ -33,7 +34,7 @@ class TestDay02(unittest.TestCase):
         self.assertEqual(ribbon(parse_size('2x3x4')), 34)
         self.assertEqual(ribbon(parse_size('1x1x10')), 14)
 
-class TestDayo3(unittest.TestCase):
+class TestDay03(unittest.TestCase):
     def test_simple(self):
         self.assertEqual(len(dispatch_flight_path('>')), 2)
         self.assertEqual(len(dispatch_flight_path('^>v<')), 4)
@@ -43,6 +44,12 @@ class TestDayo3(unittest.TestCase):
         self.assertEqual(len(dispatch_flight_path('^v', 2)), 3)
         self.assertEqual(len(dispatch_flight_path('^>v<', 2)), 3)
         self.assertEqual(len(dispatch_flight_path('^v^v^v^v^v', 2)), 11)
+
+class TestDay04(unittest.TestCase):
+    def test_simple(self):
+        # Only do one test, for reasons of performance
+        self.assertEqual(advent_coin('abcdef', 5), 609043)
+        # self.assertEqual(advent_coin('pqrstuv', 5), 1048970)
 
 if __name__ == '__main__':
     unittest.main()
