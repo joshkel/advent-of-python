@@ -6,7 +6,7 @@ from day01 import elevator, when_floor
 from day02 import parse_size, wrapping_paper, ribbon
 from day03 import dispatch_flight_path
 from day04 import advent_coin
-from day05 import is_nice, is_naughty
+from day05 import is_nice1, is_naughty1, is_nice2, is_naughty2
 
 class TestDay01(unittest.TestCase):
     def test_simple(self):
@@ -53,12 +53,18 @@ class TestDay04(unittest.TestCase):
         # self.assertEqual(advent_coin('pqrstuv', 5), 1048970)
 
 class TestDay05(unittest.TestCase):
-    def test_simple(self):
-        self.assertTrue(is_nice('ugknbfddgicrmopn'))
-        self.assertTrue(is_nice('aaa'))
-        self.assertTrue(is_naughty('jchzalrnumimnmhp'))
-        self.assertTrue(is_naughty('haegwjzuvuyypxyu'))
-        self.assertTrue(is_naughty('dvszwmarrgswjxmb'))
+    def test_one(self):
+        self.assertTrue(is_nice1('ugknbfddgicrmopn'))
+        self.assertTrue(is_nice1('aaa'))
+        self.assertTrue(is_naughty1('jchzalrnumimnmhp'))
+        self.assertTrue(is_naughty1('haegwjzuvuyypxyu'))
+        self.assertTrue(is_naughty1('dvszwmarrgswjxmb'))
+
+    def test_two(self):
+        self.assertTrue(is_nice2('qjhvhtzxzqqjkmpb'))
+        self.assertTrue(is_nice2('xxyxx'))
+        self.assertTrue(is_naughty2('uurcxstgmygtbstg'))
+        self.assertTrue(is_naughty2('ieodomkazucvgmuy'))
 
 if __name__ == '__main__':
     unittest.main()
