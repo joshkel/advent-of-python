@@ -10,35 +10,31 @@ class Coord(List):
 class Range(List):
     grammar = Coord, 'through', Coord
 
-    def apply(self, lights, f):
+    def slice(self, lights):
         x1, y1 = self[0]
         x2, y2 = self[1]
-        x2 += 1
-        y2 += 1
-        if not callable(f):
-            (lights[x1:x2,y1:y2])[:] = f
-            return
-        for i in range(x1, x2):
-            for j in range(y1, y2):
-                lights[i][j] = f(lights[i][j])
+        return lights[x1:x2+1, y1:y2+1]
 
 class ToggleCommand:
     grammar = 'toggle', attr('range', Range)
 
     def action(self, lights):
-        self.range.apply(lights, lambda l: not l)
+        l = self.range.slice(lights)
+        l[:] = 1 - l
 
 class TurnOffCommand:
     grammar = 'turn off', attr('range', Range)
 
     def action(self, lights):
-        self.range.apply(lights, False)
+        l = self.range.slice(lights)
+        l[:] = False
 
 class TurnOnCommand:
     grammar = 'turn on', attr('range', Range)
 
     def action(self, lights):
-        self.range.apply(lights, True)
+        l = self.range.slice(lights)
+        l[:] = True
 
 commands = [ToggleCommand, TurnOnCommand, TurnOffCommand]
 
