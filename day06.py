@@ -11,12 +11,16 @@ class Range(List):
     grammar = Coord, 'through', Coord
 
     def apply(self, lights, f):
-        for i in range(self[0][0], self[1][0] + 1):
-            for j in range(self[0][1], self[1][1] + 1):
-                if callable(f):
-                    lights[i][j] = f(lights[i][j])
-                else:
-                    lights[i][j] = f
+        x1, y1 = self[0]
+        x2, y2 = self[1]
+        x2 += 1
+        y2 += 1
+        if not callable(f):
+            (lights[x1:x2,y1:y2])[:] = f
+            return
+        for i in range(x1, x2):
+            for j in range(y1, y2):
+                lights[i][j] = f(lights[i][j])
 
 class ToggleCommand:
     grammar = 'toggle', attr('range', Range)
