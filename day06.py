@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import fileinput
 from pypeg2 import *
 import numpy as np
 
@@ -37,8 +38,14 @@ class TurnOnCommand:
 
 commands = [ToggleCommand, TurnOnCommand, TurnOffCommand]
 
-lights = np.zeros((1000,1000), dtype=np.bool)
-cmd = parse('toggle 0,0 through 999,999', commands)
-cmd.action(lights)
-print(lights)
-print("Total lights: %i" % np.sum(lights))
+def make_lights():
+    return np.zeros((1000,1000), dtype=np.bool)
+
+if __name__ == '__main__':
+    lights = make_lights()
+    for line in fileinput.input():
+        cmd = parse(line, commands)
+        cmd.action(lights)
+    print(lights)
+    print("Total lights: %i" % np.sum(lights))
+
