@@ -56,8 +56,14 @@ class Circuit:
     def __init__(self, cmd_list):
         self.circuit = {}
         for cmd in cmd_list:
-            output, input = self.parse(cmd)
-            self.circuit[output] = input
+            self.add(cmd)
+        self.reset()
+
+    def add(self, cmd):
+        output, input = self.parse(cmd)
+        self.circuit[output] = input
+
+    def reset(self):
         self.cache = {}
 
     @staticmethod
@@ -95,4 +101,10 @@ class Circuit:
 if __name__ == '__main__':
     cmd_list = [line.strip() for line in fileinput.input()]
     circuit = Circuit(cmd_list)
+    a_value = circuit.get_value('a')
+    print(a_value)
+
+    circuit.reset()
+    circuit.add(str(a_value) + ' -> b')
     print(circuit.get_value('a'))
+
