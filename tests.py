@@ -7,6 +7,7 @@ from day02 import parse_size, wrapping_paper, ribbon
 from day03 import dispatch_flight_path
 from day04 import advent_coin
 from day05 import is_nice1, is_naughty1, is_nice2, is_naughty2
+from day07 import Circuit
 
 class TestDay01(unittest.TestCase):
     def test_simple(self):
@@ -66,5 +67,33 @@ class TestDay05(unittest.TestCase):
         self.assertTrue(is_naughty2('uurcxstgmygtbstg'))
         self.assertTrue(is_naughty2('ieodomkazucvgmuy'))
 
+class TestDay07(unittest.TestCase):
+    commands = [
+        '123 -> x',
+        '456 -> y',
+        'x AND y -> d',
+        'x OR y -> e',
+        'x LSHIFT 2 -> f',
+        'y RSHIFT 2 -> g',
+        'NOT x -> h',
+        'NOT y -> i'
+    ]
+
+    def test_parses(self):
+        for c in self.commands:
+            self.assertTrue(Circuit.parse(c))
+
+    def test_execute(self):
+        circuit = Circuit(self.commands)
+        self.assertEqual(circuit.get_value('x'), 123)
+        self.assertEqual(circuit.get_value('y'), 456)
+        self.assertEqual(circuit.get_value('d'), 72)
+        self.assertEqual(circuit.get_value('e'), 507)
+        self.assertEqual(circuit.get_value('f'), 492)
+        self.assertEqual(circuit.get_value('g'), 114)
+        self.assertEqual(circuit.get_value('h'), 65412)
+        self.assertEqual(circuit.get_value('i'), 65079)
+
 if __name__ == '__main__':
     unittest.main()
+
